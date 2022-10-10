@@ -1,19 +1,22 @@
 <div>
-    <p>Add</p>
-    <form action="" wire:submit.prevent="add">
-        <div>
-            <label for="">tITLE</label>
-            <input type="text" wire:model="post.title" id="">
-        </div>
 
-        <div>
-            <label for="">Description</label>
-            <input type="text" wire:model="post.description" id="">
-        </div>
+    <a href="#" wire:click="toggleAdds">Add</a>
+    @if ($toggleAdd)
+        <form action="" wire:submit.prevent="add">
+            <div>
+                <label for="">tITLE</label>
+                <input type="text" wire:model="post.title" id="">
+            </div>
 
-        <button type="submit">Add</button>
+            <div>
+                <label for="">Description</label>
+                <input type="text" wire:model="post.description" id="">
+            </div>
 
-    </form>
+            <button type="submit">Add</button>
+
+        </form>
+    @endif
     <table border="1" style="width:100%">
         <thead>
             <tr>

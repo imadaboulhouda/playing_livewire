@@ -8,15 +8,25 @@ use Livewire\Component;
 class Post extends Component
 {
     public  $posts;
+    public $toggleAdd = false;
+
     public  $post = ['id' => '', 'title' => '', 'description' => ''];
+    protected $rules = [
+        'post.title' => 'required',
+        'post.description' => 'required'
+    ];
+
+    protected $messages = [
+        'post.title.required' => 'Title is required',
+        'post.description.required' => 'Description is required',
+    ];
+    function toggleAdds()
+    {
+        $this->toggleAdd = !$this->toggleAdd;
+    }
     function add()
     {
-        $this->validate([
-            'post.title' => 'required',
-            'post.description' => 'required'
-        ], [
-            'post.title.required' => 'Title is required'
-        ]);
+        $this->validate();
         $post = new ModelsPost();
         $post->title = $this->post['title'];
         $post->description = $this->post['description'];
@@ -35,12 +45,7 @@ class Post extends Component
 
     function save()
     {
-        $this->validate([
-            'post.title' => 'required',
-            'post.description' => 'required'
-        ], [
-            'post.title.required' => 'Title is required'
-        ]);
+        $this->validate();
         $post = ModelsPost::find($this->post['id']);
         $post->title = $this->post['title'];
         $post->description = $this->post['description'];
@@ -51,6 +56,7 @@ class Post extends Component
     function resetData()
     {
         $this->post = ["title" => '', 'id' => '', 'description' => ''];
+        $this->toggleAdd = false;
     }
     public function render()
     {
